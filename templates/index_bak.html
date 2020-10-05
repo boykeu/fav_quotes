@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Favorite Quotes    
+        </title>
+    </head>
+    <body>
+        <h1> Hello World! </h1>
+        
+        {% if quote %}
+        <h2> {{ quote }} </h2>
+        {% else %}
+        <h2> No variable quote here .. </h2>
+        {% endif %}
+        <h2>Your quotes are:</h2>
+        <ul>
+            {% for quote in quotes %}
+            <li>
+                {{quote}}
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
