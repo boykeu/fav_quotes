@@ -1,0 +1,228 @@
+C:\Users\m.boyke>cd Desktop
+C:\Users\m.boyke\Desktop>mkdir fav_quotes
+C:\Users\m.boyke\Desktop\fav_quotes>python -m venv venv
+\Users\m.boyke\Desktop\fav_quotes\venv\Scripts>activate
+
+C:\Windows\system32>cd \
+
+C:\>cd C:users\m.boyke\Desktop
+
+C:\Users\m.boyke\Desktop>cd fav_quotes\venv\Scripts\activate
+The directory name is invalid.
+
+C:\Users\m.boyke\Desktop>cd fav_quotes\venv\Scripts
+
+C:\Users\m.boyke\Desktop\fav_quotes\venv\Scripts>activate
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes\venv\Scripts>pip install --upgrade pip
+Requirement already up-to-date: pip in c:\users\m.boyke\desktop\fav_quotes\venv\lib\site-packages (20.2.3)
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes\venv\Scripts>cd ..
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes\venv>cd ..
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>pip install flask
+Collecting flask
+  Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)
+     |████████████████████████████████| 94 kB 41 kB/s
+Collecting Werkzeug>=0.15
+  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)
+     |████████████████████████████████| 298 kB 28 kB/s
+Collecting Jinja2>=2.10.1
+  Downloading Jinja2-2.11.2-py2.py3-none-any.whl (125 kB)
+     |████████████████████████████████| 125 kB 273 kB/s
+Collecting itsdangerous>=0.24
+  Using cached itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting click>=5.1
+  Downloading click-7.1.2-py2.py3-none-any.whl (82 kB)
+     |████████████████████████████████| 82 kB 116 kB/s
+Collecting MarkupSafe>=0.23
+  Using cached MarkupSafe-1.1.1-cp38-cp38-win_amd64.whl (16 kB)
+Installing collected packages: Werkzeug, MarkupSafe, Jinja2, itsdangerous, click, flask
+Successfully installed Jinja2-2.11.2 MarkupSafe-1.1.1 Werkzeug-1.0.1 click-7.1.2 flask-1.1.2 itsdangerous-1.1.0
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>
+
+#create .flaskenv
+#inside .flaskenv
+FLASK_ENV=development
+
+FLASK_APP=quotes.py
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>pip install python-dotenv
+Collecting python-dotenv
+  Using cached python_dotenv-0.14.0-py2.py3-none-any.whl (17 kB)
+Installing collected packages: python-dotenv
+Successfully installed python-dotenv-0.14.0
+
+#create quotes.py
+#inside it
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return '<h1> Hello World </h1>'
+	
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>flask run
+ * Serving Flask app "quotes.py" (lazy loading)
+ * Environment: development
+ * Debug mode: on
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 222-701-621
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+
+C:\Users\m.boyke\Desktop\fav_quotes>mkdir templates	
+#create index.html
+#inside it
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Favorite Quotes    
+        </title>
+    </head>
+    <body>
+        <h1> Hello World! </h1>
+--below are conditional statements and jinjja        
+        {% if quote %}
+        <h2> {{ quote }} </h2>
+        {% else %}
+        <h2> No variable quote here .. </h2>
+        {% endif %}
+
+    </body>
+</html>
+#modify quotes.py
+
+@app.route('/')
+def index():
+    # return '<h1> Hello World </h1>'
+    return render_template('index.html', quote = 'Air beriak tanda tak dalam')
+
+#print list
+#modify quotes.py
+@app.route('/')
+def index():
+    quotes = ['quote 1','quote 2','quote 3']
+    # return '<h1> Hello World </h1>'
+    return render_template('index.html', quote = 'Air beriak tanda tak dalam', quotes = quotes)
+
+#modify index.html
+        <ul>
+            {% for quote in quotes %}
+            <li>
+                {{quote}}
+            </li>
+            {% endfor %}
+        </ul>
+		
+C:\Users\m.boyke\Desktop\fav_quotes>mkdir static
+#create quotes.html in template directory
+#create  index.html in template directory
+#put bootstrap.min.css from https://github.com/twbs/bootstrap/releases/download/v4.0.0/bootstrap-4.0.0-dist.zip to static directory
+
+#create database named 'quotes' in local postgres database
+
+#modify quotes.py, add request, redirect, url_for
+#route process and get author & quote variable from  quotes.html
+
+#(venv) C:\Users\m.boyke\Desktop\fav_quotes>pip install psycopg2
+Collecting psycopg2
+  Downloading psycopg2-2.8.6-cp38-cp38-win_amd64.whl (1.1 MB)
+     |████████████████████████████████| 1.1 MB 20 kB/s
+Installing collected packages: psycopg2
+Successfully installed psycopg2-2.8.6
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>pip install Flask-SQLAlchemy
+Collecting Flask-SQLAlchemy
+  Downloading Flask_SQLAlchemy-2.4.4-py2.py3-none-any.whl (17 kB)
+Requirement already satisfied: Flask>=0.10 in c:\users\m.boyke\desktop\fav_quotes\venv\lib\site-packages (from Flask-SQLAlchemy) (1.1.2)
+Collecting SQLAlchemy>=0.8.0
+  Downloading SQLAlchemy-1.3.19-cp38-cp38-win_amd64.whl (1.2 MB)
+     |████████████████████████████████| 1.2 MB 1.6 MB/s
+Requirement already satisfied: itsdangerous>=0.24 in c:\users\m.boyke\desktop\fav_quotes\venv\lib\site-packages (from Flask>=0.10->Flask-SQLAlchemy) (1.1.0)
+Requirement already satisfied: click>=5.1 in c:\users\m.boyke\desktop\fav_quotes\venv\lib\site-packages (from Flask>=0.10->Flask-SQLAlchemy) (7.1.2)
+Requirement already satisfied: Werkzeug>=0.15 in c:\users\m.boyke\desktop\fav_quotes\venv\lib\site-packages (from Flask>=0.10->Flask-SQLAlchemy) (1.0.1)
+Requirement already satisfied: Jinja2>=2.10.1 in c:\users\m.boyke\desktop\fav_quotes\venv\lib\site-packages (from Flask>=0.10->Flask-SQLAlchemy) (2.11.2)
+Requirement already satisfied: MarkupSafe>=0.23 in c:\users\m.boyke\desktop\fav_quotes\venv\lib\site-packages (from Jinja2>=2.10.1->Flask>=0.10->Flask-SQLAlchemy) (1.1.1)
+Installing collected packages: SQLAlchemy, Flask-SQLAlchemy
+Successfully installed Flask-SQLAlchemy-2.4.4 SQLAlchemy-1.3.19
+
+#import Flask-SQLAlchemy 
+#configurate db in quotes.py
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>py
+Python 3.8.1 (tags/v3.8.1:1b293b6, Dec 18 2019, 23:11:46) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from quotes import db
+>>> db.create_all()
+>>>
+ 
+#modify quotes.py add 
+	result = Favquotes.query.all()
+    quotedata = Favquotes(author=author, quote=quote)
+    db.session.add(quotedata)
+    db.session.commit()
+	
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>pip freeze > requirements.txt
+#create .gitignore
+#create heroku app --malmsteen-quotes
+#create provision for heroku postgres
+#get db url form settings -> reveal config-vars
+#replace database_url in quotes.py
+#create db on heroku same as previous step
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>py
+Python 3.8.1 (tags/v3.8.1:1b293b6, Dec 18 2019, 23:11:46) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from quotes import db
+>>> db.create_all()
+>>> exit()
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>git init
+Initialized empty Git repository in C:/Users/m.boyke/Desktop/fav_quotes/.git/
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>git add .
+warning: LF will be replaced by CRLF in static/bootstrap.min.css.
+The file will have its original line endings in your working directory
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>git commit -m  "first commit 05/10/2020"
+[master (root-commit) 5cce786] first commit 05/10/2020
+ 11 files changed, 338 insertions(+)
+ create mode 100644 .flaskenv
+ create mode 100644 .gitignore
+ create mode 100644 Procfile
+ create mode 100644 __pycache__/quotes.cpython-38.pyc
+ create mode 100644 notes
+ create mode 100644 quotes.py
+ create mode 100644 requirements.txt
+ create mode 100644 static/bootstrap.min.css
+ create mode 100644 templates/index.html
+ create mode 100644 templates/index_bak.html
+ create mode 100644 templates/quotes.html
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>git remote add origin https://github.com/boykeu/fav_quotes.git
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>git push -u origin master
+Enumerating objects: 16, done.
+Counting objects: 100% (16/16), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (11/11), done.
+Writing objects: 100% (16/16), 25.69 KiB | 2.14 MiB/s, done.
+Total 16 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), done.
+remote:
+remote: Create a pull request for 'master' on GitHub by visiting:
+remote:      https://github.com/boykeu/fav_quotes/pull/new/master
+remote:
+To https://github.com/boykeu/fav_quotes.git
+ * [new branch]      master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+(venv) C:\Users\m.boyke\Desktop\fav_quotes>
+
+	
